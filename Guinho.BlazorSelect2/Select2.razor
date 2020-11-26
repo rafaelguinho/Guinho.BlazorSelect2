@@ -1,0 +1,49 @@
+﻿@typeparam TValue
+@inherits Select2Base<TValue>
+
+<div class="blazor-select2-container @(IsOpen ? "opened" : "")" tabindex="@TabIndex" @onkeypress="OpenOnEnter">
+
+    <div class="blazor-select2-search @(!Enabled() ? "disabled": "") @CssClass" @onclick="OpenCloseOptions">
+
+        @if (SelectedOption == null && HtmlCustomLabel != null)
+        {
+            <span>@((MarkupString)HtmlCustomLabel)</span>}
+        else if (SelectedOption == null && HtmlCustomLabel == null)
+        {
+            <span>@Label</span>
+        }
+        else if (SelectedOption != null)
+        {
+            <span>@SelectedOption.Label</span>
+        }
+
+    </div>
+
+    @if (IsOpen)
+    {
+        <div class="blazor-select2-content" id="@InternalId">
+
+            <div class="blazor-select2-content-field">
+                <input autocomplete="off" type="text"
+                       id="@InputInternalId"
+                       @oninput="HandleInput" />
+            </div>
+
+            <div class="blazor-select2-content-options">
+                <ul class="blazor-select2-content-option" id="@UlInternalId">
+                    @{int index = 0;}
+                    @foreach (var option in FilteredOptions)
+                    {
+                        <li class="blazor-select2-content-option-item @(option.Selected ? "selected" : "") @(index == 0 && !FilteredOptions.Any(o => o.Selected) ? "selected": "")" @onclick="() => SelectValue(option)" data-value="@option.Value">@option.Label</li>
+                        index++;
+                    }
+
+                </ul>
+            </div>
+
+        </div>
+    }
+
+
+</div>
+

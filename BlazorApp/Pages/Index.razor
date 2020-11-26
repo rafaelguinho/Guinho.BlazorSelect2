@@ -1,0 +1,93 @@
+﻿@page "/"
+@using Guinho.BlazorSelect2
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<EditForm Model="@dog" Context="_editContext" class="form-wizard" OnValidSubmit="HandleValidSubmit">
+
+    <div class="content">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <Select2 @bind-Value="dog.Race" Options="@options"></Select2>
+
+        <br />
+
+
+
+        <p>Race @(dog.Race)</p>
+
+        <button type="submit" class="btn btn-100 btn-primary">Enviar</button>
+
+    </div>
+
+</EditForm>
+
+@code{
+
+    Dog dog = new Dog();
+
+    List<Select2Option<string>> options = new List<Select2Option<string>>
+{
+        new Select2Option<string>
+        {
+            Label="Poodle",
+            Value= "1"
+        },
+        new Select2Option<string>
+        {
+            Label="Golden Retriever",
+            Value= "2"
+        },
+        new Select2Option<string>
+        {
+            Label="Beagle",
+            Value= "3"
+        },
+        new Select2Option<string>
+        {
+            Label="Bulldog",
+            Value= "4"
+        },
+        new Select2Option<string>
+        {
+            Label="American Hairless Terrier",
+            Value= "5"
+        },
+        new Select2Option<string>
+        {
+            Label="Beauceron",
+            Value= "6"
+        },
+        new Select2Option<string>
+        {
+            Label="Can de Chira",
+            Value= "7"
+        },
+        new Select2Option<string>
+        {
+            Label="Border Collie",
+            Value= "8"
+        },
+        new Select2Option<string>
+        {
+            Label="Cesky Terrier",
+            Value= "9"
+        },
+        new Select2Option<string>
+        {
+            Label="Boxer",
+            Value= "10"
+        }
+
+    };
+
+    private async Task HandleValidSubmit()
+    {
+        Console.WriteLine(dog.Race);
+    }
+
+}
